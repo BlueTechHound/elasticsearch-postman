@@ -6,12 +6,10 @@ At a minimum you will need to set the {{url}} variable. This should include the 
 
 # Variables used within the collection
 ### url
-
-
 ### index
 ### alias
 ### repository
 ### snapshot
 ### repository-location
-#### remote-host
+### remote-host
 ### desitination-index
