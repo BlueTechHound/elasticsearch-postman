@@ -1,0 +1,1000 @@
+{
+	"info": {
+		"_postman_id": "6be7be00-f5ed-488b-bfa5-49ffcaf2498e",
+		"name": "Elasticsearch Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Indexes",
+			"description": "",
+			"item": [
+				{
+					"name": "List all indexes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cat/indices?v&s=store.size:desc",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cat",
+								"indices"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": null
+								},
+								{
+									"key": "s",
+									"value": "store.size:desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Index",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/{{index}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reindex/Copy Index",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"source\": {\n    \"remote\": {\n      \"host\": \"http://{{remote-host}}\",\n      \"socket_timeout\": \"5m\",\n      \"connect_timeout\": \"2m\"\n    },\n    \"index\": \"{{index}}\",\n    \"query\": {\n      \"match_all\": {}\n    }\n  },\n  \"dest\": {\n    \"index\": \"{{destination-index}}\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/_reindex",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_reindex"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_all",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_cache/clear",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_cache",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Recovery (all)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"cdsdev2_customer_5a95aaadd9f37f55839205b757e4458200618c27\", \"alias\" : \"customer\" } }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/_recovery?human",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_recovery"
+							],
+							"query": [
+								{
+									"key": "human",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Recovery ",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"cdsdev2_customer_5a95aaadd9f37f55839205b757e4458200618c27\", \"alias\" : \"customer\" } }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_recovery?human",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_recovery"
+							],
+							"query": [
+								{
+									"key": "human",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Shard Store ",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"cdsdev2_customer_5a95aaadd9f37f55839205b757e4458200618c27\", \"alias\" : \"customer\" } }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_shard_stores",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_shard_stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Shard Stores (red)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"cdsdev2_customer_5a95aaadd9f37f55839205b757e4458200618c27\", \"alias\" : \"customer\" } }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/_shard_stores?status=red",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_shard_stores"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "red"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Refresh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_refresh",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Flush",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_flush",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_flush"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index Settings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"settings\": {\n    \"index.routing.allocation.require._name\": \"shrink_node_name\", \n    \"index.blocks.write\": true \n  }\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_settings",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_settings"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3b73ac2e-cbb4-46ba-a919-98a522b9d8af",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd4d4b5d-066c-4745-8b44-4d4a380c7897",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Snapshots",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Repository",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"fs\",\n    \"settings\": {\n        \"location\": \"{{repository-location}}\",\n        \"compress\": true\n    }\n}\n"
+						},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/{{repository}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"{{repository}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Snapshot",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/{{repository}}/{{snapshot}}wait_for_completion=true",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"{{repository}}",
+								"{{snapshot}}wait_for_completion=true"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Repository Snapshots",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/{{reposirtory}}/_all",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"{{reposirtory}}",
+								"_all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Snapshot Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/{{repository}}/{{snapshot}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"{{repository}}",
+								"{{snapshot}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Snapshot Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/{{repository}}/{{snapshot}}/_status",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"{{repository}}",
+								"{{snapshot}}",
+								"_status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cat snapshots",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cat/snapshots/{{repository}}?v&s=end_time:desc",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cat",
+								"snapshots",
+								"{{repository}}"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": null
+								},
+								{
+									"key": "s",
+									"value": "end_time:desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all snapshots",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/_all?pretty",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"_all"
+							],
+							"query": [
+								{
+									"key": "pretty",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Snapshot Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/{{repository}}/05-07-2018*",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"{{repository}}",
+								"05-07-2018*"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "85f67bff-edd4-4bf2-a310-bca66f4aa84d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e57644af-7103-432e-b7ea-a066a2adcab0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cluster",
+			"description": "",
+			"item": [
+				{
+					"name": "Disk Allocation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cat/allocation?v",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cat",
+								"allocation"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cluster Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cluster/health",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cluster",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cluster Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cluster/stats",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cluster",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Allocation Explain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cluster/allocation/explain",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cluster",
+								"allocation",
+								"explain"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View nodes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cat/nodes?v",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cat",
+								"nodes"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reroute",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cluster/reroute?retry_failed=true",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cluster",
+								"reroute"
+							],
+							"query": [
+								{
+									"key": "retry_failed",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Node Info ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_nodes",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_nodes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cluster Settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"persistent\" : {},\n    \"transient\" : {}\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/_cluster/settings",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cluster",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alias",
+			"description": "",
+			"item": [
+				{
+					"name": "Delete Alias",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_alias/{{alias}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_alias",
+								"{{alias}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Alias",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"{{index}}\", \"alias\" : \"{{alias}}\" } }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/_aliases",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_aliases"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d940a5dc-985d-4b71-87d2-4086e401241c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "42493cd3-b540-4e58-b66c-1bb89501a7e6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"description": null,
+			"item": [
+				{
+					"name": "List Tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_tasks?detailed=true&actions=*",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_tasks"
+							],
+							"query": [
+								{
+									"key": "detailed",
+									"value": "true"
+								},
+								{
+									"key": "actions",
+									"value": "*"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Task Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_tasks?detailed=true&actions=*",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_tasks"
+							],
+							"query": [
+								{
+									"key": "detailed",
+									"value": "true"
+								},
+								{
+									"key": "actions",
+									"value": "*"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_tasks/{{nodeid}}:{{id}}/_cancel",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_tasks",
+								"{{nodeid}}:{{id}}",
+								"_cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "85fbbd6e-bfe4-465c-90e8-f66e4fb68427",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0fec72cb-1386-4ec8-8b37-244a7fc33da8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cat",
+			"description": "",
+			"item": [
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cat",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cat"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
