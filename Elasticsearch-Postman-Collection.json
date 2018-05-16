@@ -518,32 +518,6 @@
 					"response": []
 				},
 				{
-					"name": "Delete all snapshots",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{url}}/_snapshot/_all?pretty",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"_snapshot",
-								"_all"
-							],
-							"query": [
-								{
-									"key": "pretty",
-									"value": null
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Snapshot Search",
 					"request": {
 						"method": "GET",
@@ -559,6 +533,27 @@
 								"_snapshot",
 								"{{repository}}",
 								"05-07-2018*"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Snapshot",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_snapshot/{{repository}}/{{snapshot}}",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_snapshot",
+								"{{repository}}",
+								"{{snapshot}}"
 							]
 						}
 					},
