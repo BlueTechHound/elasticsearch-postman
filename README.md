@@ -21,3 +21,5 @@ The repository location, used when creating a new repo. This must match path.rep
 Currently only used in reindex, this is the remote server in which you are retrieving an index
 ### desitination-index
 Currently only used in reindex, this is the name of the new index on the destination server
+### template
+The index template, currently used when viewing template details
