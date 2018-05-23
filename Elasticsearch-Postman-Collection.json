@@ -1048,6 +1048,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Display all aliases",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://{{url}}/_cat/aliases?v",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"_cat",
+								"aliases"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
