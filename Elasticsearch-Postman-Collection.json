@@ -86,13 +86,24 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c0fd5303-5278-4ec6-9f5a-5de6b3a5ae78",
+								"id": "ed2e1edb-9318-4bab-a220-a1dbc315833b",
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Your test name\", function () {",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Green Status\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.status).to.eql('green');",
-									"});"
+									"    pm.expect(jsonData._nodes.failed).to.eql(0);",
+									"});",
+									"",
+									"pm.test(\"No failed nodes\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData._nodes.failed).to.eql(0);",
+									"});",
+									""
 								]
 							}
 						}
