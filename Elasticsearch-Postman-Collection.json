@@ -453,7 +453,7 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{url}}/_cat/snapshots/{{repository}}?v&s=end_time:desc",
+							"raw": "http://{{url}}/_cat/snapshots/backup?v&s=start_epoch:desc",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
@@ -461,7 +461,7 @@
 							"path": [
 								"_cat",
 								"snapshots",
-								"{{repository}}"
+								"backup"
 							],
 							"query": [
 								{
@@ -470,7 +470,7 @@
 								},
 								{
 									"key": "s",
-									"value": "end_time:desc"
+									"value": "start_epoch:desc"
 								}
 							]
 						}
@@ -910,9 +910,9 @@
 					"response": []
 				},
 				{
-					"name": "Index Settings",
+					"name": "Update index settings",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -921,7 +921,35 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"settings\": {\n    \"index.routing.allocation.require._name\": \"shrink_node_name\", \n    \"index.blocks.write\": true \n  }\n}"
+							"raw": "{\n    \"index\" : {\n        \"number_of_replicas\" : 1\n    }\n}"
+						},
+						"url": {
+							"raw": "http://{{url}}/{{index}}/_settings",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{index}}",
+								"_settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View index settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"index\" : {\n        \"number_of_replicas\" : 1\n    }\n}"
 						},
 						"url": {
 							"raw": "http://{{url}}/{{index}}/_settings",
