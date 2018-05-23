@@ -82,6 +82,21 @@
 				},
 				{
 					"name": "Cluster Stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0fd5303-5278-4ec6-9f5a-5de6b3a5ae78",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.eql('green');",
+									"});"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
