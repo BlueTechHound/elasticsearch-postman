@@ -415,7 +415,7 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://{{url}}/_snapshot/{{reposirtory}}/_all",
+							"raw": "http://{{url}}/_snapshot/{{repository}}/_all",
 							"protocol": "http",
 							"host": [
 								"{{url}}"
